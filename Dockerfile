@@ -1,14 +1,14 @@
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.1-buster-arm64v8 AS build
 WORKDIR /source
 
 COPY *.csproj .
 RUN dotnet restore
 
 COPY . .
-RUN dotnet publish -c release -o /app -r linux-x64 --self-contained true --no-restore /p:PublishReadyToRun=true
+RUN dotnet publish -c release -o /app -r linux-arm64 --self-contained true --no-restore /p:PublishReadyToRun=true
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/runtime:3.1-buster-slim
+FROM mcr.microsoft.com/dotnet/runtime:3.1-buster-slim-arm64v8
 
 MAINTAINER Mike <ozczecho@yahoo.com>
 
@@ -19,7 +19,7 @@ RUN apt-get update \
 
 RUN sed -i -e 's/# en_AU.UTF-8 UTF-8/en_AU.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
-ENV TZ=Australia/Sydney
+ENV TZ=Australia/Brisbane
 ENV LANG en_AU.utf8
 ENV LANGUAGE ${LANG}
 ENV LC_ALL ${LANG}
