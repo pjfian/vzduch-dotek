@@ -1,3 +1,5 @@
+***** Updated so that it builds on a 64 bit Raspberry Pi 4 *****
+
 # Vzduch Dotek
 
 An API to interface with an AirTouch 3 AC controller.
