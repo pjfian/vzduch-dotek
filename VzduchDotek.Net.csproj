@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <RuntimeIdentifiers>win10-x64;linux-x64;linux-arm</RuntimeIdentifiers>
+    <RuntimeIdentifiers>linux-arm64;linux-arm</RuntimeIdentifiers>
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishTrimmed>true</PublishTrimmed> 
   </PropertyGroup>

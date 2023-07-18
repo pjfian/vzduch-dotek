@@ -1,14 +1,15 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy-arm64v8 AS build
+
 WORKDIR /source
 
 COPY *.csproj .
 RUN dotnet restore
 
 COPY . .
-RUN dotnet publish -c release -o /app -r linux-x64 --self-contained true --no-restore
+RUN dotnet publish -c release -o /app -r linux-arm64 --self-contained true --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/runtime:7.0-buster-slim
+FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy-arm64v8
 
 LABEL Mike <ozczecho@yahoo.com>
 
@@ -19,7 +20,7 @@ RUN apt-get update \
 
 RUN sed -i -e 's/# en_AU.UTF-8 UTF-8/en_AU.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
-ENV TZ=Australia/Sydney
+ENV TZ=Australia/Brisbane
 ENV LANG en_AU.utf8
 ENV LANGUAGE ${LANG}
 ENV LC_ALL ${LANG}
