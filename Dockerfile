@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy-arm64v8 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy-arm64v8 AS build
 
 WORKDIR /source
 
@@ -9,7 +9,7 @@ COPY . .
 RUN dotnet publish -c release -o /app -r linux-arm64 --self-contained true --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy-arm64v8
+FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy-arm64v8
 
 LABEL Mike <ozczecho@yahoo.com>
 
